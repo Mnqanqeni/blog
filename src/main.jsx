@@ -1,10 +1,84 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './store/store.js'
+import Home from "./pages/Home.jsx"
+import Login from "./pages/Login.jsx"
+import AuthLayout from "./components/AuthLayout.jsx"
+import Signup from "./pages/Signup.jsx"
+import AllPost from "./pages/AllPost.jsx"
+import AddPost from "./pages/AddPost.jsx"
+import Post from "./pages/Post.jsx"
+import EditPost from './pages/EditPost.jsx'
+
+const router = createBrowserRouter([
+  {
+    path:"/",
+    element:<App/>,
+    children:[
+      {
+        path:"/",
+        element:<Home/>,
+      },
+      {
+        path:"/login",
+        element:(
+        <AuthLayout authentication={false}>
+          <Login/>
+        </AuthLayout>
+        )
+      },
+      {
+        path:"/signup",
+        element:(
+        <AuthLayout authentication={false}>
+          <Signup/>
+        </AuthLayout>
+        )
+      },
+      {
+        path:"/all-post",
+        element:(
+        <AuthLayout authentication={true}>
+          <AllPost/>
+        </AuthLayout>
+        )
+      },
+      {
+        path:"/add-post",
+        element:(
+        <AuthLayout authentication={true}>
+         <AddPost/>
+        </AuthLayout>
+        )
+      },
+      {
+        path:"/post/:slug",
+        element:(
+        <AuthLayout authentication={true}>
+        <Post/>
+        </AuthLayout>
+        )
+      },
+      {
+        path:"/eddit-post/:slug",
+        element:(
+        <AuthLayout authentication={true}>
+        <EditPost/>
+        </AuthLayout>
+        )
+      }
+    ]
+  }
+]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  </React.StrictMode>
 )
