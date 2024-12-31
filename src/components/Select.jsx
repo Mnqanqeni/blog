@@ -1,7 +1,6 @@
 import React, { useId } from "react";
-import { preprocessCSS } from "vite";
 
-function Select({ options, label, className, ...props }) {
+export default function Select({ options, label, className, ...props }) {
   const id = useId();
 
   return (

@@ -2,7 +2,7 @@ import React from 'react'
 
 function Logo({width="100%"}) {
   return (
-   <image src="" style={{width}} alt="Logo Placeholder"/>
+   <img src="../../public/vlog.png" style={{width}} alt="Logo Placeholder"/>
   )
 }
 
