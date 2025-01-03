@@ -17,8 +17,10 @@ function Signup() {
     const create = async (data) => {
         setError("")
         try {
-            console.log(data);
             const userData = await authService.createAccount(data)
+            console.log("444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444")
+            console.log(userData)
+            console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
             if (userData) {
                 const userData = await authService.getCurrentUser()
                 if (userData) dispatch(login({userData}))
@@ -26,12 +28,16 @@ function Signup() {
             }
         } catch (error) {
             setError(error.message)
+            console.log("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+            console.log(error)
+            console.log("2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222")
         }
     }
 
     return (
+        
         <div className="flex items-center justify-center">
-            <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+            <div className={`mx-auto w-full sm: max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width="100%" />
@@ -70,7 +76,7 @@ function Signup() {
                             type="password"
                             placeholder="Password"
                         />
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-full" textColor="text-black/60">
                             Create Account
                         </Button>
                     </div>

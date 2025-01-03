@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams} from "react-router-dom"
 
 import appwriteService from "../appwrite/config"
 import Button from "../components/Button"
-import Container from "../components/container/Container"
+import PagesContainer from "../components/containers/PagesContainer"
 import parse from "html-react-parser"
 import {useSelector } from "react-redux"
 
@@ -36,7 +36,7 @@ function Post() {
   }
   return post ? (
     <div className="py-8">
-      <Container>
+      <PagesContainer>
         <div className='w-full flex justify-center mb-4 relative border rounded-xl p-2'>
           <img src={appwriteService.getFilePreview(post.featuredImage)} alt={post.title} className='rounded-xl' />
           { isAuthor && (
@@ -56,7 +56,7 @@ function Post() {
             {parse(post.content)}
           </div>
         </div>
-      </Container>
+      </PagesContainer>
     </div>
   ) : null
 }

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import {useParams, useNavigate} from "react-router-dom"
 import appwriteService from "../appwrite/config"
 import { useEffect } from 'react'
-import Container from "../components/container/Container"
+import PagesContainer from "../components/containers/PagesContainer"
 import PostForm from "../components/PostForm/PostForm"
 
 function EditPost() {
@@ -25,9 +25,9 @@ function EditPost() {
 
   return (
     <div className='py-6'>
-      <Container>
+      <PagesContainer>
         <PostForm post={post} />
-      </Container>
+      </PagesContainer>
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import appwriteService from "../appwrite/config"
 import { useState } from 'react'
 import { useEffect } from 'react'
-import Container from '../components/container/Container'
+import PagesContainer from "../components/containers/PagesContainer"
 import PostCard from "../components/PostCard"
 
 
@@ -19,7 +19,7 @@ function AllPosts() {
   //TODO: add case for array length 0
   return (
     <div className='w-full py-8'>
-      <Container>
+      <PagesContainer>
         <div className="flex flex-wrap">
           {posts.map((post) => (
             <div className="p-2 w-1/4" key={post.$id}>
@@ -27,7 +27,7 @@ function AllPosts() {
             </div>
           ))}
         </div>
-      </Container>
+      </PagesContainer>
     </div>
   )
 }

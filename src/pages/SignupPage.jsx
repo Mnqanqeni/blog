@@ -1,15 +1,14 @@
 import React from "react";
-import Login from "../components/Login";
+import Signup from "../components/Signup";
 import PagesContainer from "../components/containers/PagesContainer";
-
-function LoginPage() {
+function SignupPage() {
   return (
     <PagesContainer>
-      <div className="py-8">
-        <Login />
+      <div className="m-4">
+        <Signup />
       </div>
     </PagesContainer>
   );
 }
 
-export default LoginPage;
+export default SignupPage;

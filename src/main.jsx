@@ -8,11 +8,12 @@ import store from './store/store.js'
 import Home from "./pages/Home.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
 import AuthLayout from "./components/AuthLayout.jsx"
-import Signup from "./pages/Signup.jsx"
+import SingupPage from "./pages/SignupPage.jsx"
 import AllPost from "./pages/AllPost.jsx"
 import AddPost from "./pages/AddPost.jsx"
 import Post from "./pages/Post.jsx"
 import EditPost from './pages/EditPost.jsx'
+import SignupPage from './pages/SignupPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
         path:"/signup",
         element:(
         <AuthLayout authentication={false}>
-          <Signup/>
+          <SignupPage/>
         </AuthLayout>
         )
       },

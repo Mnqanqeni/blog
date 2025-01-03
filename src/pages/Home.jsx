@@ -2,7 +2,7 @@ import React from 'react'
 import appwriteService from "../appwrite/config"
 import { useState } from 'react'
 import { useEffect } from 'react'
-import Container from '../components/container/Container'
+import PagesContainer from '../components/containers/PagesContainer'
 import PostCard from "../components/PostCard"
 
 function Home() {
@@ -18,19 +18,18 @@ function Home() {
   }, [])
   if (posts.length === 0) {
     return (
-      <div className='w-full py-8'>
-      <Container>
-        <div className="flex flex-wrap">
+      <PagesContainer>
+        <div className="flex">
           <h1>Login to read posts</h1>
         </div>
-      </Container>
-    </div>
+      </PagesContainer>
+
     )
   }
 
   return (
     <div className='w-full py-8'>
-      <Container>
+      <PagesContainer>
         <div className="flex flex-wrap">
           {posts.map((post) => (
             <div className="p-2 w-1/4" key={post.$id}>
@@ -38,7 +37,7 @@ function Home() {
             </div>
           ))}
         </div>
-      </Container>
+      </PagesContainer>
     </div>
   )
 }

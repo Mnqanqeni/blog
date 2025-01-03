@@ -7,9 +7,9 @@ function App() {
     <>
     <div>
       <Header/>
-      {/* <main>
+      <main>
         <Outlet/>
-      </main> */}
+      </main>
     </div>  
     </>
   )
