@@ -5,8 +5,8 @@ import Button from "./Button"
 import Input from './Input'
 import Logo from "./Logo"
 import {useForm} from "react-hook-form"
-import {useDispatch} from "react-redux"
-import {login as authLogin} from "../store/authSlice"
+import {useDispatch, useSelector} from "react-redux"
+import {login} from "../store/authSlice"
 
 export default function Login() {
     const navigate = useNavigate()
@@ -17,10 +17,16 @@ export default function Login() {
     const login = async (data) => {
         setError("")
         try {
-            const session = await authService.login(data)
+            const session = await authService.login(data);
+            console.log("This is my session")
+            console.log(session)
             if (session) {
+                console.log("This is my userData state");
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(authLogin({userData}))
+                console.log(userData)
+                if (userData) dispatch(login({userData}));
+                const data= useSelector((state)=>state.auth.userData);
+                console.log(data)
                 navigate("/")
             }
         } catch (error) {

@@ -31,13 +31,18 @@ export class AuthService{
     }
 
     async login({email,password}){
+        console.log("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")
+        console.log(email)
+        console.log(password)
+        console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
         try{
             return await this.account.createEmailPasswordSession(email,password)
-        }catch{
-            throw error;
+        }catch(error){
+            console.log("create Email Password Error")
+            console.log(error)
         }
     }
-    async getCurrenUser(){
+    async getCurrentUser(){
         try{
             return await this.account.get();
         }catch(error){
@@ -48,7 +53,7 @@ export class AuthService{
 
     async logout(){
         try{
-            return await account.deleteSessions();
+            return await this.account.deleteSessions();
         }catch(error){
             console.log(error)
             return

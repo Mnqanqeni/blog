@@ -16,7 +16,6 @@ function Protected({children,authentication=true}) {
     }
     setLoader(false)
   },[authStatus,authentication,navigate])
-
   return loader?null:<>{children }</>
   
 }
