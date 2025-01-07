@@ -1,16 +1,13 @@
-import { use } from "react";
 import conf from "../conf/conf";
-import { Client, Databases, Storage, Query, ID } from "appwrite";
-import { useId } from "react";
+import { Client,ID,Databases,Storage} from "appwrite";
 
 export class Service {
   client = new Client();
   databases;
-  bucket;
+  storage;
+
   constructor() {
-    this.client
-      .setEndpoint(conf.appwriteUrl)
-      .setProject(conf.appwriteProjectId);
+    this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);
     this.databases = new Databases(this.client);
     this.storage = new Storage(this.client);
   }
@@ -23,45 +20,50 @@ export class Service {
         slug
       );
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching post:", error);
+      throw error;
     }
   }
 
   async getPosts(queries = [Query.equal("status", "active")]) {
     try {
-      const response = await this.databases.listDocuments(
+      return await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         queries
       );
-      console.log(response);
-      return response;
     } catch (error) {
-      console.error("Error fetching posts:", error.message, error.code);
-      console.error(error);
+      console.error("Error fetching posts:", error);
+      throw error;
     }
   }
 
-  async createPost({ title, slug, content, featureImage, status, userId }) {
+  async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
-      return this.databases.createDocument(
+      return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
-        { title, content, featureImage, status, userId }
+        { title, content, featuredImage, status, userId }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error creating post:", error);
+      throw error;
+    }
   }
 
-  async updatePost(slug, { title, content, featureImage, status }) {
+  async updatePost(slug, { title, content, featuredImage, status }) {
     try {
-      result = await this.databases.updateDocument(
+      return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
-        { title, content, featureImage, status }
+        { title, content, featuredImage, status }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error updating post:", error);
+      throw error;
+    }
   }
 
   async deletePost(slug) {
@@ -73,45 +75,40 @@ export class Service {
       );
       return true;
     } catch (error) {
-      console.log(error);
+      console.error("Error deleting post:", error);
+      throw error;
     }
   }
 
-  //storage
-
   async uploadFile(file) {
-    console.log("Creating a file");
-    console.log(file);
     const fileId = ID.unique();
-    console.log(`${fileId}`);
     try {
-      const response = await this.storage.createFile(
-        conf.appwriteBucketId,
-        fileId,
-        file
-      );
-      console.log("File apploud:");
-      console.log(response);
-      return response;
+      return await this.storage.createFile(conf.appwriteBucketId, fileId, file);
     } catch (error) {
-      console.log("create file throw an error");
-      console.log(error);
+      console.error("Error uploading file:", error);
+      throw error;
     }
   }
 
   async deleteFile(fileId) {
     try {
-      return await this.storage.deleteFile(conf.appwriteBucketId, fileId);
-    } catch {}
+      await this.storage.deleteFile(conf.appwriteBucketId, fileId);
+      return true;
+    } catch (error) {
+      console.error("Error deleting file:", error);
+      throw error;
+    }
   }
 
   async getFilePreview(fileId) {
     try {
-      return await this.storage.getFilePreview(conf.bucket, fileId).href;
-    } catch (error) {}
+      return await this.storage.getFilePreview(conf.appwriteBucketId, fileId);
+    } catch (error) {
+      console.error("Error getting file preview:", error);
+      throw error;
+    }
   }
 }
 
 const service = new Service();
-
 export default service;

@@ -11,34 +11,21 @@ export class AuthService{
 
     async createAccount({email,password,name}){
         try{
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            console.log(email,password,name)
-            console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
             const userAccount= await this.account.create(ID.unique(),email,password,name)
-            console.log("7777777777777777777777777777777777777777777777777777");
-            console.log(userAccount)
-            console.log("666666666666666666666666666666666666666666666666666666666666666666666");
             if(userAccount){
                 return this.login({email,password})
             }else{
                 return userAccount;
             }
         }catch(error){
-            console.log("7777777777777777777777777777777777777777777777777777");
             console.log(error)
-            console.log("666666666666666666666666666666666666666666666666666666666666666666666");
         }
     }
 
     async login({email,password}){
-        console.log("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")
-        console.log(email)
-        console.log(password)
-        console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
         try{
             return await this.account.createEmailPasswordSession(email,password)
         }catch(error){
-            console.log("create Email Password Error")
             console.log(error)
         }
     }

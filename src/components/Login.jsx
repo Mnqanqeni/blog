@@ -13,20 +13,16 @@ export default function Login() {
     const dispatch = useDispatch()
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState("")
-
-    const login = async (data) => {
+    const submitLogin = async (data) => {
         setError("")
         try {
             const session = await authService.login(data);
-            console.log("This is my session")
-            console.log(session)
             if (session) {
-                console.log("This is my userData state");
                 const userData = await authService.getCurrentUser()
-                console.log(userData)
-                if (userData) dispatch(login({userData}));
-                const data= useSelector((state)=>state.auth.userData);
-                console.log(data)
+                if (userData){
+                    dispatch(login({userData}));
+                } 
+              
                 navigate("/")
             }
         } catch (error) {
@@ -53,7 +49,7 @@ export default function Login() {
                     </Link>
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-                <form onSubmit={handleSubmit(login)} className="mt-8">
+                <form onSubmit={handleSubmit(submitLogin)} className="mt-8">
                     <div className="space-y-5">
                         <Input
                             label="Email : "

@@ -18,9 +18,6 @@ function Signup() {
         setError("")
         try {
             const userData = await authService.createAccount(data)
-            console.log("444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444")
-            console.log(userData)
-            console.log("555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555")
             if (userData) {
                 const userData = await authService.getCurrentUser()
                 if (userData) dispatch(login({userData}))
@@ -28,9 +25,7 @@ function Signup() {
             }
         } catch (error) {
             setError(error.message)
-            console.log("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
             console.log(error)
-            console.log("2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222")
         }
     }
 
